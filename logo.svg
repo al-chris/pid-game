@@ -1,0 +1,123 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2980b9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3498db;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#74b9ff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#0984e3;stop-opacity:0.2" />
+    </linearGradient>
+    
+    <!-- Filter for glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Animation paths -->
+    <path id="waveform" d="M0,30 Q15,10 30,30 T60,30 T90,30 T120,30" stroke="none" fill="none"/>
+  </defs>
+  
+  <!-- Background circle with subtle glow -->
+  <circle cx="60" cy="60" r="45" fill="url(#glowGradient)" opacity="0.1"/>
+  
+  <!-- Main circular badge -->
+  <circle cx="60" cy="60" r="40" fill="url(#primaryGradient)" stroke="#2c3e50" stroke-width="2"/>
+  
+  <!-- PID Control System Visualization -->
+  <!-- Input signal -->
+  <line x1="25" y1="60" x2="35" y2="60" stroke="#ecf0f1" stroke-width="2" opacity="0.8">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Controller block -->
+  <rect x="35" y="52" width="16" height="16" fill="#e74c3c" rx="2" stroke="#c0392b" stroke-width="1"/>
+  <text x="43" y="62" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white" text-anchor="middle">PID</text>
+  
+  <!-- System block -->
+  <rect x="55" y="52" width="16" height="16" fill="#27ae60" rx="2" stroke="#229954" stroke-width="1"/>
+  <text x="63" y="62" font-family="Arial, sans-serif" font-size="6" font-weight="bold" fill="white" text-anchor="middle">SYS</text>
+  
+  <!-- Output signal -->
+  <line x1="71" y1="60" x2="85" y2="60" stroke="#ecf0f1" stroke-width="2" opacity="0.8">
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Feedback loop -->
+  <path d="M 85 60 L 95 60 L 95 75 L 30 75 L 30 65" stroke="#f39c12" stroke-width="2" fill="none" opacity="0.7">
+    <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Setpoint arrow -->
+  <line x1="20" y1="55" x2="25" y2="60" stroke="#e67e22" stroke-width="2"/>
+  <line x1="20" y1="65" x2="25" y2="60" stroke="#e67e22" stroke-width="2"/>
+  
+  <!-- Response waveform animation -->
+  <g opacity="0.6">
+    <path d="M75,45 Q80,35 85,45 T95,45" stroke="#74b9ff" stroke-width="1.5" fill="none">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 5,0; 0,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <circle cx="85" cy="45" r="1" fill="#74b9ff">
+      <animate attributeName="cy" values="45;35;45;55;45" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Academy graduation cap -->
+  <g transform="translate(85, 25)">
+    <polygon points="0,8 6,4 18,4 24,8 18,12 6,12" fill="url(#accentGradient)" stroke="#d35400" stroke-width="0.5"/>
+    <rect x="11" y="4" width="2" height="8" fill="#d35400"/>
+    <circle cx="13" cy="14" r="1" fill="#d35400"/>
+    <animateTransform attributeName="transform" type="rotate" values="0 12 8; 5 12 8; 0 12 8; -5 12 8; 0 12 8" dur="4s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Text: "PID" -->
+  <text x="140" y="45" font-family="'Segoe UI', Arial, sans-serif" font-size="28" font-weight="800" fill="url(#primaryGradient)" filter="url(#glow)">
+    PID
+  </text>
+  
+  <!-- Text: "ACADEMY" -->
+  <text x="140" y="70" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="400" fill="#2c3e50" letter-spacing="2px">
+    ACADEMY
+  </text>
+  
+  <!-- Tagline -->
+  <text x="140" y="85" font-family="'Segoe UI', Arial, sans-serif" font-size="9" font-weight="300" fill="#7f8c8d" font-style="italic">
+    Master the Art of Control Systems
+  </text>
+  
+  <!-- Decorative elements -->
+  <!-- Small control points -->
+  <circle cx="280" cy="30" r="2" fill="#e74c3c" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="290" cy="40" r="1.5" fill="#f39c12" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="285" cy="50" r="1" fill="#27ae60" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Grid pattern background -->
+  <defs>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#ecf0f1" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="120" fill="url(#grid)" opacity="0.1"/>
+  
+  <!-- Interactive hover effect placeholder -->
+  <rect width="300" height="120" fill="transparent" stroke="none" style="cursor:pointer">
+    <animate attributeName="opacity" values="0;0.05;0" dur="3s" repeatCount="indefinite"/>
+  </rect>
+</svg>
