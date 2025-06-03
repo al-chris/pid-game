@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PID Control Academy - Interactive Learning Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="game-overlay" id="gameOverlay">
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="logo">
+                <h1>🎓 PID Control Academy</h1>
+                <p>Master the Art of Control Systems</p>
+            </div>
+            <div class="player-info">
+                <div class="avatar">👨‍🎓</div>
+                <div class="player-details">
+                    <h3>Welcome, al-chris!</h3>
+                    <p>Control Engineer in Training</p>
+                </div>
+            </div>
+            <div class="game-modes">
+                <button class="mode-btn" data-mode="tutorial">
+                    <div class="mode-icon">📚</div>
+                    <h3>Tutorial Mode</h3>
+                    <p>Learn the basics step by step</p>
+                </button>
+                <button class="mode-btn" data-mode="challenge">
+                    <div class="mode-icon">🏆</div>
+                    <h3>Challenge Mode</h3>
+                    <p>Test your skills with missions</p>
+                </button>
+                <button class="mode-btn" data-mode="sandbox">
+                    <div class="mode-icon">🎮</div>
+                    <h3>Sandbox Mode</h3>
+                    <p>Free play and experimentation</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-hud">
+        <div class="hud-left">
+            <div class="player-avatar">👨‍🎓</div>
+            <div class="player-stats">
+                <div class="player-name">al-chris</div>
+                <div class="level">Level <span id="playerLevel">1</span></div>
+                <div class="experience">
+                    <div class="xp-bar">
+                        <div class="xp-fill" id="xpFill"></div>
+                    </div>
+                    <span id="xpText">0/100 XP</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hud-center">
+            <div class="mission-info" id="missionInfo">
+                <h3 id="missionTitle">Welcome to PID Academy</h3>
+                <p id="missionDescription">Select a game mode to begin your journey</p>
+                <div class="mission-progress" id="missionProgress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span id="progressText">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hud-right">
+            <div class="score-display">
+                <div class="score-label">Score</div>
+                <div class="score-value" id="scoreValue">0</div>
+            </div>
+            <div class="achievements" id="achievementNotif">
+                <div class="achievement-popup" id="achievementPopup">
+                    <div class="achievement-icon">🏆</div>
+                    <div class="achievement-text">
+                        <div class="achievement-title">Achievement Unlocked!</div>
+                        <div class="achievement-desc" id="achievementDesc">First Steps</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="example-selector">
+            <button class="example-btn active" data-example="car">🚗 Car Cruise Control</button>
+            <button class="example-btn" data-example="drone">🚁 Drone Control</button>
+            <button class="example-btn" data-example="temperature">🌡️ Temperature Control</button>
+            <button class="example-btn" data-example="pendulum">⚖️ Pendulum Balance</button>
+        </div>
+
+        <div class="demo-area">
+            <div class="animation-container" id="animationContainer">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+
+            <div class="controls-panel">
+                <div class="panel-header">
+                    <h3>🎛️ PID Parameters</h3>
+                    <div class="difficulty-selector">
+                        <label>Difficulty:</label>
+                        <select id="difficultySelect">
+                            <option value="easy">🟢 Easy</option>
+                            <option value="medium">🟡 Medium</option>
+                            <option value="hard">🔴 Hard</option>
+                            <option value="expert">💀 Expert</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Proportional (Kp) <span class="help-tip" title="Controls immediate response to error">ℹ️</span></label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="kpSlider" min="0" max="5" step="0.1" value="1.0">
+                        <span class="value-display" id="kpValue">1.0</span>
+                    </div>
+                    <div class="param-feedback" id="kpFeedback"></div>
+                </div>
+
+                <div class="control-group">
+                    <label>Integral (Ki) <span class="help-tip" title="Eliminates steady-state error">ℹ️</span></label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="kiSlider" min="0" max="2" step="0.05" value="0.1">
+                        <span class="value-display" id="kiValue">0.1</span>
+                    </div>
+                    <div class="param-feedback" id="kiFeedback"></div>
+                </div>
+
+                <div class="control-group">
+                    <label>Derivative (Kd) <span class="help-tip" title="Reduces overshoot and oscillation">ℹ️</span></label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="kdSlider" min="0" max="1" step="0.01" value="0.05">
+                        <span class="value-display" id="kdValue">0.05</span>
+                    </div>
+                    <div class="param-feedback" id="kdFeedback"></div>
+                </div>
+
+                <div class="control-group">
+                    <label>Target Setpoint</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="setpointSlider" min="0" max="100" step="1" value="60">
+                        <span class="value-display" id="setpointValue">60</span>
+                    </div>
+                </div>
+
+                <div class="performance-metrics">
+                    <h4>📊 Performance Metrics</h4>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <div class="metric-label">Stability</div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" id="stabilityFill"></div>
+                            </div>
+                            <div class="metric-value" id="stabilityValue">0%</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Speed</div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" id="speedFill"></div>
+                            </div>
+                            <div class="metric-value" id="speedValue">0%</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Accuracy</div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" id="accuracyFill"></div>
+                            </div>
+                            <div class="metric-value" id="accuracyValue">0%</div>
+                        </div>
+                    </div>
+                    <div class="overall-score">
+                        <div class="score-label">Overall Performance</div>
+                        <div class="score-grade" id="overallGrade">F</div>
+                    </div>
+                </div>
+
+                <div class="info-panel">
+                    <h3 id="systemTitle">Car Cruise Control</h3>
+                    <p id="systemDescription">Use the gas and brake pedals to control speed manually!</p>
+                    
+                    <div class="pid-values">
+                        <div class="pid-value">
+                            <div class="label">P Term</div>
+                            <div class="value" id="pTerm">0.0</div>
+                        </div>
+                        <div class="pid-value">
+                            <div class="label">I Term</div>
+                            <div class="value" id="iTerm">0.0</div>
+                        </div>
+                        <div class="pid-value">
+                            <div class="label">D Term</div>
+                            <div class="value" id="dTerm">0.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <h3>📈 System Response</h3>
+                <div class="chart-controls">
+                    <button class="chart-btn" id="pauseBtn">⏸️ Pause</button>
+                    <button class="chart-btn" id="resetBtn">🔄 Reset</button>
+                    <button class="chart-btn" id="saveBtn">💾 Save</button>
+                </div>
+            </div>
+            <canvas id="pidChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="challenges-panel" id="challengesPanel">
+            <h3>🎯 Active Challenges</h3>
+            <div class="challenge-list" id="challengeList">
+                <!-- Challenges will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-hints" id="floatingHints">
+        <div class="hint-bubble" id="hintBubble">
+            <div class="hint-text" id="hintText">Welcome! Click on a system to start learning.</div>
+            <button class="hint-close" id="hintClose">×</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
