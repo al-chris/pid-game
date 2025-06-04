@@ -1,0 +1,12 @@
+<svg width="100" height="120" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3A7BC8; stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M50 0 L95 20 L95 70 C95 90 75 115 50 120 C25 115 5 90 5 70 L5 20 L50 0 Z" fill="url(#shieldGradient)" stroke="#2E609A" stroke-width="2"/>
+  <path d="M20 75 C30 75, 35 45, 50 45 C65 45, 70 75, 80 75" fill="none" stroke="#50E3C2" stroke-width="5" stroke-linecap="round"/>
+  <line x1="15" y1="75" x2="85" y2="75" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="3,3"/>
+  <text x="50" y="100" font-family="Nunito Sans, Montserrat, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle" font-weight="bold">PCA</text>
+</svg>
