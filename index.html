@@ -3,26 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PID Control Academy - Interactive Learning Game</title>
+    <title>PID Control Academy - Enhanced Gaming Experience</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Favicon links for various platforms and sizes -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="shortcut icon" href="/favicon/favicon.ico">
 </head>
 <body>
+    <!-- Game Overlay -->
     <div class="game-overlay" id="gameOverlay">
         <div class="welcome-screen" id="welcomeScreen">
             <div class="logo">
                 <h1>🎓 PID Control Academy</h1>
-                <p>Master the Art of Control Systems</p>
+                <p>Master Control Systems Through Interactive Gaming</p>
             </div>
             <div class="player-info">
                 <div class="avatar">👨‍🎓</div>
@@ -44,16 +37,16 @@
                 </button>
                 <button class="mode-btn" data-mode="sandbox">
                     <div class="mode-icon">🎮</div>
-                    <h3>Sandbox Mode</h3>
-                    <p>Free play and experimentation</p>
+                    <h3>Free Play Mode</h3>
+                    <p>Experiment and have fun</p>
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Compact Game HUD -->
     <div class="game-hud">
         <div class="hud-left">
-            <div class="player-avatar">👨‍🎓</div>
             <div class="player-stats">
                 <div class="player-name">al-chris</div>
                 <div class="level">Level <span id="playerLevel">1</span></div>
@@ -69,7 +62,6 @@
         <div class="hud-center">
             <div class="mission-info" id="missionInfo">
                 <h3 id="missionTitle">Welcome to PID Academy</h3>
-                <p id="missionDescription">Select a game mode to begin your journey</p>
                 <div class="mission-progress" id="missionProgress">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progressFill"></div>
@@ -81,48 +73,117 @@
 
         <div class="hud-right">
             <div class="score-display">
-                <div class="score-label">Score</div>
                 <div class="score-value" id="scoreValue">0</div>
             </div>
-            <div class="achievements" id="achievementNotif">
-                <div class="achievement-popup" id="achievementPopup">
-                    <div class="achievement-icon">🏆</div>
-                    <div class="achievement-text">
-                        <div class="achievement-title">Achievement Unlocked!</div>
-                        <div class="achievement-desc" id="achievementDesc">First Steps</div>
-                    </div>
-                </div>
-            </div>
+            <button class="settings-toggle" id="settingsToggle" title="Toggle Advanced Settings">⚙️</button>
         </div>
     </div>
 
-    <div class="container">
-        <div class="example-selector">
-            <button class="example-btn active" data-example="car">🚗 Car Cruise Control</button>
-            <button class="example-btn" data-example="drone">🚁 Drone Control</button>
-            <button class="example-btn" data-example="temperature">🌡️ Temperature Control</button>
-            <button class="example-btn" data-example="pendulum">⚖️ Pendulum Balance</button>
+    <!-- Main Game Container -->
+    <div class="game-container">
+        <!-- System Selector -->
+        <div class="system-selector">
+            <button class="system-btn active" data-example="car">🚗</button>
+            <button class="system-btn" data-example="drone">🚁</button>
+            <button class="system-btn" data-example="temperature">🌡️</button>
+            <button class="system-btn" data-example="pendulum">⚖️</button>
         </div>
 
-        <div class="demo-area">
+        <!-- Main Game Area -->
+        <div class="game-area" id="gameArea">
+            <!-- Flight Status Panel (for drone) -->
+            <div class="flight-status" id="flightStatus">
+                <div class="status-item">
+                    <span class="status-label">ALT</span>
+                    <span class="status-value" id="altitudeValue">50m</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">SPD</span>
+                    <span class="status-value" id="speedValue">0</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">BAT</span>
+                    <div class="battery-indicator">
+                        <div class="battery-fill" id="batteryFill"></div>
+                    </div>
+                </div>
+                <div class="compass" id="compass">
+                    <div class="compass-needle"></div>
+                </div>
+            </div>
+
+            <!-- Game Stats Panel -->
+            <div class="game-stats" id="gameStats">
+                <div class="stat-item">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="gameScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Grade</span>
+                    <span class="stat-value grade" id="currentGrade">F</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Mode</span>
+                    <span class="stat-value" id="flightMode">NORMAL</span>
+                </div>
+            </div>
+
+            <!-- Main Animation Container -->
             <div class="animation-container" id="animationContainer">
                 <!-- Dynamic content will be inserted here -->
             </div>
 
-            <div class="controls-panel">
-                <div class="panel-header">
-                    <h3>🎛️ PID Parameters</h3>
-                    <div class="difficulty-selector">
-                        <label>Difficulty:</label>
-                        <select id="difficultySelect">
-                            <option value="easy">🟢 Easy</option>
-                            <option value="medium">🟡 Medium</option>
-                            <option value="hard">🔴 Hard</option>
-                            <option value="expert">💀 Expert</option>
-                        </select>
+            <!-- Active Controls Display -->
+            <div class="controls-display" id="controlsDisplay">
+                <div class="control-indicator" id="wKey">W</div>
+                <div class="control-indicator" id="aKey">A</div>
+                <div class="control-indicator" id="sKey">S</div>
+                <div class="control-indicator" id="dKey">D</div>
+                <div class="control-indicator space" id="spaceKey">SPACE</div>
+                <div class="control-indicator shift" id="shiftKey">⇧ BOOST</div>
+                <div class="control-indicator ctrl" id="ctrlKey">⌃ PRECISION</div>
+            </div>
+
+            <!-- Enhanced Pedals -->
+            <div class="pedal-container">
+                <!-- Brake Pedal (Bottom Left) -->
+                <div class="pedal brake-pedal" id="brakePedal">
+                    <div class="pedal-surface">
+                        <div class="pedal-grip"></div>
+                        <div class="pedal-grip"></div>
+                        <div class="pedal-grip"></div>
                     </div>
+                    <div class="pedal-label">BRAKE</div>
+                    <div class="pedal-indicator" id="brakeIndicator"></div>
                 </div>
-                
+
+                <!-- Accelerator Pedal (Bottom Right) -->
+                <div class="pedal accelerator-pedal" id="acceleratorPedal">
+                    <div class="pedal-surface">
+                        <div class="pedal-grip"></div>
+                        <div class="pedal-grip"></div>
+                        <div class="pedal-grip"></div>
+                    </div>
+                    <div class="pedal-label">ACCEL</div>
+                    <div class="pedal-indicator" id="accelIndicator"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collapsible Settings Panel -->
+        <div class="settings-panel" id="settingsPanel">
+            <div class="panel-header">
+                <h3>🎛️ Advanced Settings</h3>
+                <button class="close-panel" id="closePanel">×</button>
+            </div>
+            
+            <div class="settings-tabs">
+                <button class="tab-btn active" data-tab="pid">PID</button>
+                <button class="tab-btn" data-tab="game">Game</button>
+                <button class="tab-btn" data-tab="debug">Debug</button>
+            </div>
+
+            <div class="tab-content" id="pidTab">
                 <div class="control-group">
                     <label>Proportional (Kp) <span class="help-tip" title="Controls immediate response to error">ℹ️</span></label>
                     <div class="slider-container">
@@ -158,83 +219,136 @@
                     </div>
                 </div>
 
+                <div class="pid-values">
+                    <div class="pid-value">
+                        <div class="label">P Term</div>
+                        <div class="value" id="pTerm">0.0</div>
+                    </div>
+                    <div class="pid-value">
+                        <div class="label">I Term</div>
+                        <div class="value" id="iTerm">0.0</div>
+                    </div>
+                    <div class="pid-value">
+                        <div class="label">D Term</div>
+                        <div class="value" id="dTerm">0.0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="gameTab">
+                <div class="control-group">
+                    <label>Difficulty</label>
+                    <select id="difficultySelect">
+                        <option value="easy">🟢 Easy</option>
+                        <option value="medium">🟡 Medium</option>
+                        <option value="hard">🔴 Hard</option>
+                        <option value="expert">💀 Expert</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Control Sensitivity</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="sensitivitySlider" min="0.5" max="2" step="0.1" value="1.0">
+                        <span class="value-display" id="sensitivityValue">1.0</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Audio</label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="soundEnabled" checked>
+                        <label for="soundEnabled">Sound Effects</label>
+                    </div>
+                </div>
+
                 <div class="performance-metrics">
-                    <h4>📊 Performance Metrics</h4>
-                    <div class="metrics-grid">
-                        <div class="metric">
-                            <div class="metric-label">Stability</div>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="stabilityFill"></div>
-                            </div>
-                            <div class="metric-value" id="stabilityValue">0%</div>
+                    <h4>📊 Performance</h4>
+                    <div class="metric">
+                        <span class="metric-label">Stability</span>
+                        <div class="metric-bar">
+                            <div class="metric-fill stability" id="stabilityFill"></div>
                         </div>
-                        <div class="metric">
-                            <div class="metric-label">Speed</div>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="speedFill"></div>
-                            </div>
-                            <div class="metric-value" id="speedValue">0%</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-label">Accuracy</div>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="accuracyFill"></div>
-                            </div>
-                            <div class="metric-value" id="accuracyValue">0%</div>
-                        </div>
+                        <span class="metric-value" id="stabilityValue">0%</span>
                     </div>
-                    <div class="overall-score">
-                        <div class="score-label">Overall Performance</div>
-                        <div class="score-grade" id="overallGrade">F</div>
+                    <div class="metric">
+                        <span class="metric-label">Speed</span>
+                        <div class="metric-bar">
+                            <div class="metric-fill speed" id="speedFill"></div>
+                        </div>
+                        <span class="metric-value" id="speedValue">0%</span>
                     </div>
-                </div>
-
-                <div class="info-panel">
-                    <h3 id="systemTitle">Car Cruise Control</h3>
-                    <p id="systemDescription">Use the gas and brake pedals to control speed manually!</p>
-                    
-                    <div class="pid-values">
-                        <div class="pid-value">
-                            <div class="label">P Term</div>
-                            <div class="value" id="pTerm">0.0</div>
+                    <div class="metric">
+                        <span class="metric-label">Accuracy</span>
+                        <div class="metric-bar">
+                            <div class="metric-fill accuracy" id="accuracyFill"></div>
                         </div>
-                        <div class="pid-value">
-                            <div class="label">I Term</div>
-                            <div class="value" id="iTerm">0.0</div>
-                        </div>
-                        <div class="pid-value">
-                            <div class="label">D Term</div>
-                            <div class="value" id="dTerm">0.0</div>
-                        </div>
+                        <span class="metric-value" id="accuracyValue">0%</span>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="chart-container">
-            <div class="chart-header">
-                <h3>📈 System Response</h3>
-                <div class="chart-controls">
-                    <button class="chart-btn" id="pauseBtn">⏸️ Pause</button>
-                    <button class="chart-btn" id="resetBtn">🔄 Reset</button>
-                    <button class="chart-btn" id="saveBtn">💾 Save</button>
+            <div class="tab-content hidden" id="debugTab">
+                <div class="chart-container">
+                    <canvas id="pidChart" width="300" height="150"></canvas>
                 </div>
-            </div>
-            <canvas id="pidChart" width="400" height="200"></canvas>
-        </div>
-
-        <div class="challenges-panel" id="challengesPanel">
-            <h3>🎯 Active Challenges</h3>
-            <div class="challenge-list" id="challengeList">
-                <!-- Challenges will be populated dynamically -->
+                
+                <div class="debug-controls">
+                    <button class="debug-btn" id="pauseBtn">⏸️ Pause</button>
+                    <button class="debug-btn" id="resetBtn">🔄 Reset</button>
+                    <button class="debug-btn" id="saveBtn">💾 Save</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="floating-hints" id="floatingHints">
-        <div class="hint-bubble" id="hintBubble">
-            <div class="hint-text" id="hintText">Welcome! Click on a system to start learning.</div>
-            <button class="hint-close" id="hintClose">×</button>
+    <!-- Control Help Overlay -->
+    <div class="control-help" id="controlHelp">
+        <div class="help-content">
+            <h3>🎮 Controls</h3>
+            <div class="control-list">
+                <div class="control-item">
+                    <span class="control-key">WASD / Arrow Keys</span>
+                    <span class="control-desc">Movement</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">Shift</span>
+                    <span class="control-desc">Boost Mode</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">Ctrl</span>
+                    <span class="control-desc">Precision Mode</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">Space</span>
+                    <span class="control-desc">Emergency Brake</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">R</span>
+                    <span class="control-desc">Reset Orientation</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">1-4</span>
+                    <span class="control-desc">Switch Systems</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">H</span>
+                    <span class="control-desc">Toggle Help</span>
+                </div>
+            </div>
+        </div>
+        <button class="close-help" id="closeHelp">×</button>
+    </div>
+
+    <!-- Floating Notifications -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <div class="achievement-icon">🏆</div>
+        <div class="achievement-text">
+            <div class="achievement-title" id="achievementTitle">Achievement Unlocked!</div>
+            <div class="achievement-desc" id="achievementDesc">First Steps</div>
         </div>
     </div>
 
